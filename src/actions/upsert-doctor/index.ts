@@ -2,6 +2,7 @@
 
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 
 import { db } from "@/db";
@@ -39,13 +40,12 @@ export const upsertDoctor = actionClient
     if (!session?.user.clinic?.id) {
       throw new Error("Usuário não pertence a uma clínica");
     }
-
     await db
       .insert(doctorsTable)
       .values({
         ...parsedInput,
         id: parsedInput.id,
-        clinicId: session.user.clinic.id,
+        clinicId: session?.user.clinic?.id,
         availableFromTime: availableFromTimeUTC.format("HH:mm:ss"),
         availableToTime: availableToTimeUTC.format("HH:mm:ss"),
       })
@@ -57,4 +57,5 @@ export const upsertDoctor = actionClient
           availableToTime: availableToTimeUTC.format("HH:mm:ss"),
         },
       });
+    revalidatePath("/doctors");
   });

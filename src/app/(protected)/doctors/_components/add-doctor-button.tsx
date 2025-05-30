@@ -13,7 +13,7 @@ const AddDoctorButton = () => {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button>
           <Plus />
           Adicionar médico
