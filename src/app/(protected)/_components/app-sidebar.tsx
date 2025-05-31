@@ -2,6 +2,7 @@
 
 import {
   CalendarDays,
+  Gem,
   LayoutDashboard,
   LogOut,
   Stethoscope,
@@ -33,10 +34,26 @@ import {
 import { authClient } from "@/lib/auth-client";
 
 const items = [
-  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
-  { title: "Agendamentos", url: "/appointments", icon: CalendarDays },
-  { title: "Médicos", url: "/doctors", icon: Stethoscope },
-  { title: "Pacientes", url: "/patients", icon: UsersRound },
+  {
+    title: "Dashboard",
+    url: "/dashboard",
+    icon: LayoutDashboard,
+  },
+  {
+    title: "Agendamentos",
+    url: "/appointments",
+    icon: CalendarDays,
+  },
+  {
+    title: "Médicos",
+    url: "/doctors",
+    icon: Stethoscope,
+  },
+  {
+    title: "Pacientes",
+    url: "/patients",
+    icon: UsersRound,
+  },
 ];
 
 const AppSidebar = () => {
@@ -55,8 +72,8 @@ const AppSidebar = () => {
   };
   return (
     <Sidebar>
-      <SidebarHeader className="border-b p-6">
-        <Image src="/logo.svg" alt="Dr. Agenda" width={136} height={28} />
+      <SidebarHeader className="border-b p-4">
+        <Image src="/logo.svg" alt="Doutor Agenda" width={136} height={28} />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
@@ -76,18 +93,38 @@ const AppSidebar = () => {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>Outros</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  isActive={pathname === "/subscription"}
+                >
+                  <Link href="/subscription">
+                    <Gem />
+                    <span>Assinatura</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton size="lg" className="py-8">
+                <SidebarMenuButton size="lg">
                   <Avatar>
-                    <AvatarFallback>A</AvatarFallback>
+                    <AvatarFallback>F</AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className="text-sm">{session.data?.user.clinic?.name}</p>
+                    <p className="text-sm">
+                      {session.data?.user?.clinic?.name}
+                    </p>
                     <p className="text-muted-foreground text-sm">
                       {session.data?.user.email}
                     </p>
